@@ -1,3 +1,5 @@
+from werkzeug.security import generate_password_hash
+
 from db.database import user_view, ads_view
 import requests
 
@@ -6,7 +8,7 @@ import requests
 # print(user_view.patch('Admin', 'password', password))
 
   # Смена других учетных данных
-# print(user_view.patch('Another-m', 'email', 'another-m@mail.ru'))
+# print(user_view.patch('Another, 'email', 'another@another.ru'))
 
   # Информация обо всех пользователях
 users = user_view.get({'arg': 'all_users'})
@@ -57,7 +59,7 @@ response = requests.get(url=HOST,
 # response = requests.delete(url=HOST,
 #                         headers=headers,
 #                         # params=params
-#                         # json={'content': 'Объявление JSON тестовое. Объявление test'}
+#                         # json={'content': ''}
 #                         )
 
 print(response.text)
