@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="text-align: center;"> Войдите в систему </h2>
+<br>
+
+<form action="/auth" method="POST" class="form">
+    <p><label>Логин</label><input type="text" name="username" value="" requied />
+    <p><label>Пароль</label><input type="password" name="password" value="" requied />
+    <p><label>Запомнить меня</label><input type="checkbox" name="remember"  />
+    <br>
+    <p><input type="submit" value="Войти">
+</form>
+<p>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+</p>
+
+{% endblock %}

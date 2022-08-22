@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="text-align: center;"> Регистрация нового пользователя </h2>
+
+<form action="/registr" method="POST" class="form">
+    <p><label>Логин *</label><input type="text" name="username" value="" placeholder="не более 10 символов" requied />
+    <p><label>Имя *</label><input type="text" name="firstname" value="" requied />
+    <p><label>Фамилия</label><input type="text" name="lastname" value=""/>
+    <p><label>E-mail</label><input type="email" name="email" value=""/>
+    <p><label>Пароль *</label><input type="password" name="password" value="" requied />
+    <p><label>Повторите пароль *</label><input type="password" name="password2" value="" requied />
+    <br>
+    <p><input type="submit" value="Зарегистрироваться">
+</form>
+<p>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+</p>
+
+{% endblock %}

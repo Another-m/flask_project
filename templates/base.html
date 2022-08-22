@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>Flask - {{ title }}</title>
+    {% else %}
+    <title>Flask</title>
+    {% endif %}
+</head>
+<body>
+<div class="header">
+    <h1> {{ title }}</h1>
+    <ul class="auth">
+        <li style="font-size: 15.5px; text-align: center; ">{{ auth.auth_menu.info }}</li>
+        {% for item in auth.auth_menu.menu %}
+        <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<ul class="mainmenu">
+    {% for item in menu %}
+    <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+    {% endfor %}
+</ul>
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

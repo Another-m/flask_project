@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="text-align: center;"> {{ text_link }} </h2>
+
+<h3 style="text-align: center"> Работа с API </h3>
+
+<div class="api">
+    <a href="?get_token=1">Получить токен</a>
+    {% if get_token.token %}
+        <form action="/profile" method="GET" class="form">
+            <label>{{ get_token.text }}</label><input type="text" name="value" value="{{ get_token.token }}" style="min-width: 98%;"/>
+        </form>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('api_ads') }}">Получить объявления в json, GET запрос</a>
+    <br>
+    <a href="/form">Добавить объявление в json, POST запрос</a>
+</div>
+
+
+<div style="border: 1.5px solid #333; margin: 10px 0 5px 0; min-height: 117px; background: #fffcf5">
+
+    <div style="border-bottom: 1px solid #ccc; margin: 10px 2px 5px 2px; background: #fffdf9 ">
+        <h3 style="margin: 5px 0 0 10px; text-align: center; color: #a54a3a ">Краткая инструкция</h3>
+    </div><br>
+    <h4 style="margin: 5px 0 0 10px; text-align: center">Get запрос</h4>
+<p style="margin: 5px 0 0 15px; text-indent: 25px">Для получения всех объявлений отправьте запрос по адресу  /api/ads (путь относительный), параметры не обязательны, объявления доступны всем пользователям.
+
+<h4 style="margin: 5px 0 0 10px; text-align: center">POST запрос</h4>
+<p style="margin: 5px 0 0 15px; text-indent: 25px">Для добавления объявления отправьте запрос по адресу  /api/ads (путь относительный),
+    в headers необходимо передать Ваш токен {'Auth': TOKEN}, не зарегистрированным пользователям добавление объявлений
+    через API в данный момент невозможно.</p>
+<p style="margin: 5px 0 0 15px; text-indent: 25px">В json передать следующие параметры {'title': 'Заголовок объявления, 'content': 'Текст объявления'}.
+    Чтобы прикрепить изображение к объявлению воспользуйтесь формой на самом сайте (его можно добавить, отредактировав объявление,
+    перейдя по ссысылке с главнй страницы на страницу объявления, либо прописав вручную /&lt;id&gt; в адресной строке.</p><br>
+
+<h4 style="margin: 5px 0 0 10px; text-align: center">PATCH запрос</h4>
+<p style="margin: 5px 0 0 15px; text-indent: 25px">Для добавления объявления отправьте запрос по адресу  /api/ads/&lt;id объявления&gt;
+    (путь относительный), в headers необходимо передать Ваш токен {'Auth': TOKEN}.</p>
+<p style="margin: 5px 0 0 15px; text-indent: 25px">В json передать следующие параметры {'title': 'Новый заголовок объявления, 'content': 'Новый текст объявления'}.
+    Изображение можно изменить только через форму на сайте.</p><br>
+
+<h4 style="margin: 5px 0 0 10px; text-align: center">DELETE запрос</h4>
+<p style="margin: 5px 0 0 15px; text-indent: 25px">Для удаления объявления отправьте запрос по адресу  /api/ads/&lt;id объявления&lt;
+    (путь относительный), в headers необходимо передать Ваш токен {'Auth': TOKEN}.</p><br>
+
+<p style="margin: 5px 0 0 15px; text-indent: 25px">Для получения токина через API отправьте Get запрос  с параметрами
+    {'get_token': 1, } и headers {'login': 'Ваш_логин', 'password': 'пароль'}</p><br>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="text-align: center;"> Объявления </h2>
+{% if auth.login %}
+<div id="links">
+    <p style="text-align: right; font-size: 16.5px; margin: 9px">
+        {% if sign == "my" %}
+        <a href="/?ads=all" >Все объявления</a> / <a href="/?ads=my" class="selected">Только мои</a></p>
+        {% else %}
+        <a href="/?ads=all" class="selected">Все объявления</a> / <a href="/?ads=my" >Только мои</a></p>
+        {% endif %}
+</div>
+{% endif %}
+
+{% if data %}
+{% for item in data %}
+<div style="border: 1.5px solid #333; margin: 6px 0 5px 0; min-height: 117px">
+    <div style="border: 1.5px solid #333; margin: 1px 1px 1px 0; float: left; overflow:hidden;">
+        <a href="{{ item.img }}"><img style="object-fit: contain;" src="{{ item.img }}" height="110px" width="110px" align=center hspace=1 vspace=1"></a>
+    </div>
+    <div style="border-bottom: 1px solid #ccc; margin: 5px 0 5px 117px;">
+        <p style="margin: 0 0 0 10px; display: inline-block">{{ item.firstname }} ({{ item.username }})</p>
+        <p style="font-family: Arial; margin: 0 10px 0 0; float: right; display: inline">{{ item.created_at }}</p>
+    </div>
+    <h3 style="margin: 5px 0 0 120px"><a href="/ads/{{ item.id }}">{{ item.title }}</a></h3>
+    <p style="margin: 5px 0 0 120px">{{ item.content }}</p>
+</div>
+{% endfor %}
+{% else %}
+<div style="border: 1.5px solid #333; margin: 5px 0 5px 0; min-height: 117px">
+    <p style="margin: 25px auto auto 10px;">Здесь пока еще нет ниодного объявления</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="text-align: center;"> Добавить объявление </h2>
+<br>
+
+<form enctype=multipart/form-data action="{{ url_for('form') }}" method="POST" class="form">
+    {% if not auth.login %}
+    <p><label>Ваше Имя</label><input type="text" name="firstname" placeholder="" value="" requied />
+    {% endif %}
+    <p><label>Заголовок</label><input type="text" name="title" placeholder="" value="" requied />
+    <p><label>Изображение</label><input type="file" name="img" value="" accept="image/*" />
+    <p><label>Текст объявления</label><br><textarea name="content" rows="7" cols="40"></textarea>
+    <br>
+    <input type="submit" value="Отправить">
+</form>
+<p>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+</p>
+{% if advert.firstname %}
+<div style="border: 1.5px solid #333; margin: 5px 0 5px 0; min-height: 117px">
+    <div style="border: 1.5px solid #333; margin: 1px 1px 1px 0; float: left; overflow:hidden;">
+        <a href="/static/images/{{ advert.img }}"><img style="object-fit: contain;" src="/static/images/{{ advert.img }}" height="110px" width="110px" align=center hspace=1 vspace=1"></a>
+    </div>
+    <div style="border-bottom: 1px solid #ccc; margin: 5px 0 5px 117px;">
+        <p style="margin: 0 0 0 10px; display: inline-block" >{{ advert.firstname }}</p>
+        <p style="font-family: Arial; margin: 0 10px 0 0; float: right; display: inline">{{ advert.created_at }}</p>
+    </div>
+    <h3 style="margin: 5px 0 0 120px">{{ advert.title }}</h3>
+    <p style="margin: 5px 0 0 120px">{{ advert.content }}</p>
+</div>
+{% endif %}
+{% endblock %}
